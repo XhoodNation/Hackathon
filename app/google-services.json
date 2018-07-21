@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "606852688458",
+    "firebase_url": "https://foodmax-22940.firebaseio.com",
+    "project_id": "foodmax-22940",
+    "storage_bucket": "foodmax-22940.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:606852688458:android:ca54372e5bf58275",
+        "android_client_info": {
+          "package_name": "org.afrikcode.hackathon"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "606852688458-gqlsekcpvg2oe5j6p4nook644f4hhe8g.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "org.afrikcode.hackathon",
+            "certificate_hash": "6bee2758d275c272b15956dc3489adf3d688c894"
+          }
+        },
+        {
+          "client_id": "606852688458-2otu4qhifmcq4icu3c0384r2bmecp64p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBsSehPSayBztAe-HXlLbLpHoGSTnIv5BY"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "606852688458-2otu4qhifmcq4icu3c0384r2bmecp64p.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
