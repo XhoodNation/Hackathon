@@ -10,11 +10,19 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.FacebookSdk;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import org.afrikcode.hackathon.contracts.AuthContract;
 import org.afrikcode.hackathon.presenters.AuthPresenter;
+
+import java.util.Arrays;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -26,11 +34,14 @@ public class SplashActivity extends AppCompatActivity implements AuthContract.Si
     ProgressBar progressBar;
     @BindView(R.id.parentLayout)
     RelativeLayout parentLayout;
+    @BindView(R.id.login_button)
+    LoginButton loginButton;
 
 
     // Objects
     private FirebaseUser mUser;
     private AuthPresenter mAuthPresenter;
+    private CallbackManager callbackManager;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -50,9 +61,12 @@ public class SplashActivity extends AppCompatActivity implements AuthContract.Si
             public void run() {
                 TransitionManager.beginDelayedTransition(parentLayout);
                 if (mUser == null) {
+
+                    initializeFacebookLogin();
+
                     progressBar.setVisibility(View.GONE);
                     Toast.makeText(SplashActivity.this, "Not Logged in", Toast.LENGTH_LONG).show();
-//                    signinCard.setVisibility(View.VISIBLE);
+                    loginButton.setVisibility(View.VISIBLE);
                 } else {
                     progressBar.setVisibility(View.GONE);
                     Intent i = new Intent(SplashActivity.this, MainActivity.class);
@@ -61,6 +75,29 @@ public class SplashActivity extends AppCompatActivity implements AuthContract.Si
             }
         }, 4000);
 
+    }
+
+    private void initializeFacebookLogin() {
+
+        FacebookSdk.sdkInitialize(getApplicationContext());
+        callbackManager = CallbackManager.Factory.create();
+        loginButton.setReadPermissions(Arrays.asList("email"));
+        loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+                mAuthPresenter.signinWithFacebookAccessToken(loginResult.getAccessToken());
+            }
+
+            @Override
+            public void onCancel() {
+                Toast.makeText(SplashActivity.this, "Facebook Authentication Cancelled", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onError(FacebookException error) {
+                Toast.makeText(SplashActivity.this, "Facebook Authentication, an error occurred", Toast.LENGTH_LONG).show();
+            }
+        });
 
     }
 
@@ -90,6 +127,12 @@ public class SplashActivity extends AppCompatActivity implements AuthContract.Si
     @Override
     public void onSignupError(String error) {
         Toast.makeText(getApplicationContext(), error, Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        callbackManager.onActivityResult(requestCode, resultCode, data);
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
 }
