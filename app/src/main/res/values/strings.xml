@@ -4,4 +4,5 @@
     //Facebook Auth app id
     <string name="facebook_app_id">240150909935222</string>
     <string name="fb_login_protocol_scheme">fb240150909935222</string>
+    <string name="action_save">Done</string>
 </resources>

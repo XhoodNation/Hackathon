@@ -69,7 +69,7 @@ public class SplashActivity extends AppCompatActivity implements AuthContract.Si
                     loginButton.setVisibility(View.VISIBLE);
                 } else {
                     progressBar.setVisibility(View.GONE);
-                    Intent i = new Intent(SplashActivity.this, MainActivity.class);
+                    Intent i = new Intent(SplashActivity.this, SetupActivity.class);
                     startActivity(i);
                 }
             }
