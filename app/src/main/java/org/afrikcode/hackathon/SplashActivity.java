@@ -60,6 +60,7 @@ public class SplashActivity extends AppCompatActivity implements AuthContract.Si
             @Override
             public void run() {
                 TransitionManager.beginDelayedTransition(parentLayout);
+                loginButton.setVisibility(View.INVISIBLE);
                 if (mUser == null) {
 
                     initializeFacebookLogin();
@@ -71,6 +72,7 @@ public class SplashActivity extends AppCompatActivity implements AuthContract.Si
                     progressBar.setVisibility(View.GONE);
                     Intent i = new Intent(SplashActivity.this, SetupActivity.class);
                     startActivity(i);
+                    finish();
                 }
             }
         }, 4000);
@@ -86,6 +88,7 @@ public class SplashActivity extends AppCompatActivity implements AuthContract.Si
             @Override
             public void onSuccess(LoginResult loginResult) {
                 mAuthPresenter.signinWithFacebookAccessToken(loginResult.getAccessToken());
+
             }
 
             @Override
